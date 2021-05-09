@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anomaly Detector</title>
+</head>
+<body>
+<form action="/search" method="post" enctype="multipart/form-data" name="searchForm" target="result"></form>
+<table>   
+    <tr>
+        <td><input type="file" name="train_file"></td>
+        <td>Upload a CSV for training</td>
+    </tr>
+
+    <tr>
+        <td><input type="file" name="test_file"></td>
+        <td>Upload a CSV for anomaly detection</td>
+    </tr>
+    <tr>
+        <label for="algorithms">Choose an anomaly detection algorithm:</label>
+
+        <select name="algorithms" id="algorithms">
+        <option value="line">Line regression</option>
+        <option value="circle">Circle</option>
+        </select>
+    </tr>
+    <br>
+</table>
+<input type="submit">
+
+<br>
+<iframe name="result" width="80%" height="500"></iframe>
+</body>
+</html>
