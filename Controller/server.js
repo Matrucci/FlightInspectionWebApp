@@ -1,6 +1,6 @@
 const http=require('http');
 const fs=require('fs')
-const model =require('../Model/findAnomalies')
+const model =require('../Model/anomalyHandler')
 
 function displayFormCommand(req, res){
     fs.readFile('../View/index.html','utf8',(err,data)=>{
