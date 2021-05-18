@@ -1,6 +1,20 @@
+const { SimpleAnomalyDetector } = require("./AnomalyDetectionAlg/SimpleAnomalyDetector");
 const {TimeSeries} = require("./AnomalyDetectionAlg/TimeSeries");
 
 function  findAnomalies(train, test, key){
+
+    if (key == 1) { //line
+        let am = new AnomalyManager(new SimpleAnomalyDetector(0.9));
+        am.uploadTrain(train);
+        am.uploadTest(test);
+        am.learn();
+        am.detect();
+        return am.getAnomalies(1);
+    } else if (key == 2) { //circle
+
+    }
+
+    /*
     let result='1\n'
     train.split("\n").forEach(row=>{
         result+= row+'\n'
@@ -18,6 +32,7 @@ function  findAnomalies(train, test, key){
 
     //TODO Send to server from first semester
     return output
+    */
 }
 
 function sendToServer(input) {

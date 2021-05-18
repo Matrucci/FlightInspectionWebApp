@@ -15,9 +15,9 @@ app.post("/search", (req, res) => {
     let type = req.body.algorithms
     var key
     if (type == 'line') {
-        key = 6
+        key = 1
     } else if (type == 'circle') {
-        key = 3
+        key = 2
     }
     if(req.files) {
         //console.log(req.files)
