@@ -1,17 +1,29 @@
+const { json } = require("express");
+const { HybridAnomalyDetector } = require("./AnomalyDetectionAlg/HybridAnomalyDetector");
 const { SimpleAnomalyDetector } = require("./AnomalyDetectionAlg/SimpleAnomalyDetector");
 const {TimeSeries} = require("./AnomalyDetectionAlg/TimeSeries");
 
 function  findAnomalies(train, test, key){
 
     if (key == 1) { //line
-        let am = new AnomalyManager(new SimpleAnomalyDetector(0.9));
-        am.uploadTrain(train);
-        am.uploadTest(test);
+        let am = new AnomalyManager(new SimpleAnomalyDetector(0));
+        mapCsvTrain = parseCsv(train);
+        mapCsvTest = parseCsv(test);
+        am.uploadTrain(mapCsvTrain);
+        am.uploadTest(mapCsvTest);
         am.learn();
         am.detect();
-        return am.getAnomalies(1);
+        console.log(am.getAnomalies("airspeed-indicator_indicated-speed-kt"))
+        return am.getAnomalies("airspeed-indicator_indicated-speed-kt").toString();
     } else if (key == 2) { //circle
-
+        let am = new AnomalyManager(new HybridAnomalyDetector(0));
+        mapCsvTrain = parseCsv(train);
+        mapCsvTest = parseCsv(test);
+        am.uploadTrain(mapCsvTrain);
+        am.uploadTest(mapCsvTest);
+        am.learn();
+        am.detect();
+        return am.getAnomalies("aileron");
     }
 
     /*
@@ -34,6 +46,53 @@ function  findAnomalies(train, test, key){
     return output
     */
 }
+
+function parseCsv(csvStringFile) {
+    let map = {};
+    let lines = csvStringFile.split('\n');
+
+    for (let i = 0; i < lines.length; i++) {
+        lines[i] = lines[i].split('\r')[0];
+    }
+
+    let lineIndex = 0;
+    let line = lines[lineIndex];
+    let featuresList = line.split(',');
+    Features = featuresList;
+    let columnsSize = featuresList.length;
+
+    let tampMap = {};
+    for (let i = 0; i < featuresList.length; i++) {
+        let j = 2;
+        while (featuresList[i] in tampMap) {
+            featuresList[i] = featuresList[i] + j.toString();
+            j++;
+        }
+        tampMap[featuresList[i]] = [];
+    }
+    for (let feature of featuresList) {
+        map[feature] = [];
+    }
+    let isFirst = true;
+    for (const line of lines) {
+        if (!isFirst) {
+            let arr = [];
+            for (const value of line.split(',')) {
+                arr.push(parseFloat(value));
+            }
+            for (let i = 0; i < columnsSize; i++) {
+                map[featuresList[i]].push(arr[i])
+			}
+            arr = [];
+        }
+        isFirst = false;
+    }
+    for (let feature of featuresList) {
+        map[feature].pop();
+    }
+    return map;
+}
+
 
 function sendToServer(input) {
     //TODO send to server and build JSON

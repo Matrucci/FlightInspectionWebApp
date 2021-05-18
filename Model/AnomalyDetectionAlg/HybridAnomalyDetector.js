@@ -2,7 +2,7 @@ const {AnomalyDetectionUtil} = require("./AnomalyDetectionUtil");
 const {Point} = require("./AnomalyDetectionUtil");
 const {Circle} = require("./AnomalyDetectionUtil");
 const {CorrelatedFeatures} = require('./SimpleAnomalyDetector');
-const enclosingCircle = require('smallest-enclosing-circle');
+//const enclosingCircle = require('smallest-enclosing-circle');
 
 class HybridAnomalyDetector {
 
