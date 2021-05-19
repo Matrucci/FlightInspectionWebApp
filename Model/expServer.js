@@ -12,19 +12,27 @@ app.get("/", (req, res) => {
     res.sendFile("index.html")
 })
 app.post("/search", (req, res) => {
-    let type = req.body.algorithms
+    //console.log(req.body.select)
+    let type = req.body.select
     var key
     if (type == 'line') {
         key = 1
     } else if (type == 'circle') {
         key = 2
     }
+    
     if(req.files) {
         //console.log(req.files)
         let trainFile = req.files.train_file
         let testFile = req.files.test_file
-        let result = model.findAnomalies(trainFile.data.toString(), testFile.data.toString(), key)
-        res.write(result)
+        if (testFile && trainFile) {
+            let result = model.findAnomalies(trainFile.data.toString(), testFile.data.toString(), key)
+            res.write(result)
+        } else {
+            res.write("Please upload both files")
+        }
+    } else {
+        res.write("Please upload both files")
     }
     res.end()
 })
