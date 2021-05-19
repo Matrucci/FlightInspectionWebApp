@@ -13,8 +13,10 @@ function  findAnomalies(train, test, key){
         am.uploadTest(mapCsvTest);
         am.learn();
         am.detect();
-        console.log(am.getAnomalies("airspeed-indicator_indicated-speed-kt"))
-        return am.getAnomalies("airspeed-indicator_indicated-speed-kt").toString();
+        output = buildAnomalyReport(am);
+        return output;
+        //console.log(am.getAnomalies("airspeed-indicator_indicated-speed-kt"))
+        //return am.getAnomalies("airspeed-indicator_indicated-speed-kt").toString();
     } else if (key == 2) { //circle
         let am = new AnomalyManager(new HybridAnomalyDetector(0));
         mapCsvTrain = parseCsv(train);
@@ -24,6 +26,20 @@ function  findAnomalies(train, test, key){
         am.learn();
         am.detect();
         return am.getAnomalies("aileron");
+    }
+
+    function buildAnomalyReport(am) {
+        titles = [];
+        output = "";
+        titles = am.getFeatures();
+        for(let i = 0; i < titles.length; i++) {
+            anomaly = am.getAnomalies(titles[i]);
+            if (anomaly && anomaly[0]) {
+                output += titles[i] + " - " + am.mostCorrelative(titles[i]) + "\n";
+                output += anomaly.toString() + "\n\n";
+            }
+        }
+        return output;
     }
 
     /*
@@ -115,6 +131,10 @@ class AnomalyManager{
 
     uploadTest(testJson){
         this._test = new TimeSeries(testJson);
+    }
+
+    getFeatures() {
+        return this._test.getFeatures();
     }
 
     learn(){
