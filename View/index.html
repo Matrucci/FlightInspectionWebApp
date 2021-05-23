@@ -23,6 +23,13 @@
         </div>
 
         <div>
+          <label>Insert threshold (default 0.9): 0.</label>
+          <INPUT id="threshold" onkeypress="return isNumberKey(this, event)" 
+        type="text" name="threshold" value="9">
+        </div>
+        
+
+        <div>
           <button class="button" onclick="document.getElementById('train_file').click()">Upload train CSV</button>
           <input type='file' name="train_file" id="train_file" style="display:none" accept=".csv">
   
@@ -38,6 +45,17 @@
 
 <br>
 <iframe name="result" width="80%" height="500"></iframe>
+
+
+<script type="text/javascript">
+  function isNumberKey(txt, evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 &&
+      (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
+</script>
 
 
 <script>

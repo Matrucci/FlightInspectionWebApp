@@ -3,10 +3,10 @@ const { HybridAnomalyDetector } = require("./AnomalyDetectionAlg/HybridAnomalyDe
 const { SimpleAnomalyDetector } = require("./AnomalyDetectionAlg/SimpleAnomalyDetector");
 const {TimeSeries} = require("./AnomalyDetectionAlg/TimeSeries");
 
-function  findAnomalies(train, test, key){
+function  findAnomalies(train, test, key, threshold){
 
     if (key == 1) { //line
-        let am = new AnomalyManager(new SimpleAnomalyDetector(0));
+        let am = new AnomalyManager(new SimpleAnomalyDetector(threshold));
         mapCsvTrain = parseCsv(train);
         mapCsvTest = parseCsv(test);
         am.uploadTrain(mapCsvTrain);
@@ -18,14 +18,16 @@ function  findAnomalies(train, test, key){
         //console.log(am.getAnomalies("airspeed-indicator_indicated-speed-kt"))
         //return am.getAnomalies("airspeed-indicator_indicated-speed-kt").toString();
     } else if (key == 2) { //circle
-        let am = new AnomalyManager(new HybridAnomalyDetector(0));
+        let am = new AnomalyManager(new HybridAnomalyDetector(threshold));
         mapCsvTrain = parseCsv(train);
         mapCsvTest = parseCsv(test);
         am.uploadTrain(mapCsvTrain);
         am.uploadTest(mapCsvTest);
         am.learn();
         am.detect();
-        return am.getAnomalies("aileron");
+        output = buildAnomalyReport(am);
+        return output;
+        //return am.getAnomalies("aileron");
     }
 
     function buildAnomalyReport(am) {
