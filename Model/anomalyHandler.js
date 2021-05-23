@@ -14,7 +14,7 @@ function  findAnomalies(train, test, key, threshold){
         am.learn();
         am.detect();
         output = buildAnomalyReport(am);
-        return output;
+        return output.toString();
         //console.log(am.getAnomalies("airspeed-indicator_indicated-speed-kt"))
         //return am.getAnomalies("airspeed-indicator_indicated-speed-kt").toString();
     } else if (key == 2) { //circle
@@ -26,21 +26,25 @@ function  findAnomalies(train, test, key, threshold){
         am.learn();
         am.detect();
         output = buildAnomalyReport(am);
-        return output;
+        return output.toString();
         //return am.getAnomalies("aileron");
     }
 
     function buildAnomalyReport(am) {
+        let anomalyMap = new Map();
         titles = [];
         output = "";
         titles = am.getFeatures();
         for(let i = 0; i < titles.length; i++) {
             anomaly = am.getAnomalies(titles[i]);
             if (anomaly && anomaly[0]) {
+                //anomalyMap.set(titles[i] + " - " + am.mostCorrelative(titles[i]), anomaly);
                 output += titles[i] + " - " + am.mostCorrelative(titles[i]) + "\n";
                 output += anomaly.toString() + "\n\n";
             }
         }
+        //console.log(Object.fromEntries(anomalyMap));
+        //return Object.fromEntries(anomalyMap);
         return output;
     }
 
@@ -110,14 +114,6 @@ function parseCsv(csvStringFile) {
     }
     return map;
 }
-
-
-function sendToServer(input) {
-    //TODO send to server and build JSON
-    return "A-B     135"
-}
-
-
 
 
 class AnomalyManager{

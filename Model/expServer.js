@@ -26,7 +26,7 @@ app.post("/search", (req, res) => {
     } else if (type == 'circle') {
         key = 2
     }
-    console.log(floatThreshold);
+    //console.log(floatThreshold);
     
     if(req.files) {
         //console.log(req.files)
