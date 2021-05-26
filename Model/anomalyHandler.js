@@ -2,6 +2,7 @@ const { json } = require("express");
 const { HybridAnomalyDetector } = require("./AnomalyDetectionAlg/HybridAnomalyDetector");
 const { SimpleAnomalyDetector } = require("./AnomalyDetectionAlg/SimpleAnomalyDetector");
 const {TimeSeries} = require("./AnomalyDetectionAlg/TimeSeries");
+const TSMap = require("typescript-map").TSMap;
 
 function  findAnomalies(train, test, key, threshold){
 
@@ -14,7 +15,7 @@ function  findAnomalies(train, test, key, threshold){
         am.learn();
         am.detect();
         output = buildAnomalyReport(am);
-        return output.toString();
+        return output;
         //console.log(am.getAnomalies("airspeed-indicator_indicated-speed-kt"))
         //return am.getAnomalies("airspeed-indicator_indicated-speed-kt").toString();
     } else if (key == 2) { //circle
@@ -26,26 +27,35 @@ function  findAnomalies(train, test, key, threshold){
         am.learn();
         am.detect();
         output = buildAnomalyReport(am);
-        return output.toString();
+        return output;
         //return am.getAnomalies("aileron");
     }
 
     function buildAnomalyReport(am) {
-        let anomalyMap = new Map();
+        let anomalyMap = new TSMap();
         titles = [];
-        output = "";
+        //output = "";
         titles = am.getFeatures();
         for(let i = 0; i < titles.length; i++) {
             anomaly = am.getAnomalies(titles[i]);
             if (anomaly && anomaly[0]) {
-                //anomalyMap.set(titles[i] + " - " + am.mostCorrelative(titles[i]), anomaly);
-                output += titles[i] + " - " + am.mostCorrelative(titles[i]) + "\n";
-                output += anomaly.toString() + "\n\n";
+                
+                if (!anomalyMap.has(am.mostCorrelative(titles[i]) + " - " + titles[i])) {
+                    anomalyMap.set(titles[i] + " - " + am.mostCorrelative(titles[i]), anomaly);
+                }
+                
+               /*
+                if (!anomalyMap.has("Property 1: " + am.mostCorrelative(titles[i]) + "\r\nProperty 2: " + titles[i] + "\r\nTime steps: ")) {
+                    anomalyMap.set("Property 1: " + titles[i] + "\r\nProperty 2: " + am.mostCorrelative(titles[i]) + "\r\nTime steps: ", anomaly);
+                }
+                */
+                //output += titles[i] + " - " + am.mostCorrelative(titles[i]) + "\n";
+                //output += anomaly.toString() + "\n\n";
             }
         }
-        //console.log(Object.fromEntries(anomalyMap));
-        //return Object.fromEntries(anomalyMap);
-        return output;
+        console.log(anomalyMap.toJSON());
+        return anomalyMap.toJSON();
+        //return output;
     }
 
     /*

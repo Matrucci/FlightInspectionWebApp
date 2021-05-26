@@ -9,9 +9,8 @@
   <h1>
     אני מתכנת לא מעצבת פנים
   </h1>
-<form action="/search" method="post" enctype="multipart/form-data" name="searchForm" target="result">
+<form action="/detect" method="post" enctype="multipart/form-data" name="detectForm" target="result">
     <table>
-      
         <div class="wrapper">
           <input type="radio" value="line" name="select" id="option-1" checked>
           <input type="radio" value="circle" name="select" id="option-2">
@@ -28,7 +27,7 @@
         <div>
           <label>Insert threshold (default 0.9): 0.</label>
           <INPUT id="threshold" onkeypress="return isNumberKey(this, event)" 
-        type="text" name="threshold" value="9">
+        type="text" name="threshold" value="0">
         </div>
         
 
@@ -47,7 +46,11 @@
 
 
 <br>
-<iframe name="result" width="80%" height="500"></iframe>
+
+<iframe name="result" width="80%" height="500">
+ 
+</iframe>
+
 
 
 <script type="text/javascript">

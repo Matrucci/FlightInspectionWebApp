@@ -8,8 +8,14 @@
 html,body{
   display: grid;
   height: 100%;
-  place-items: center;
-  background: #0069d9;
+  /*place-items: center;*/
+  
+  background: #0069d9 url("https://i.imgur.com/ZYLMfzq.png") no-repeat;
+  /*
+  background: url("https://www.mdpi.com/aerospace/aerospace-07-00115/article_deploy/html/images/aerospace-07-00115-g001.png") no-repeat;
+  */
+  background-size: cover;
+  background-position: center;
   font-family: 'Lato', sans-serif;
 }
 .button {
