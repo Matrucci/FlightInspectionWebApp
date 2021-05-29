@@ -47,10 +47,26 @@
 
 <br>
 
-<iframe name="result" width="80%" height="500">
+<iframe name="result" id="result" width="80%" height="500">
  
 </iframe>
 
+<!--
+<script type="text/javascript">
+  var doc = document.getElementById('result').contentWindow.document;
+  doc.open();
+  doc.write('<html><head><title></title></head><body>Hello world.</body></html>');
+  doc.close();
+</script>
+-->
+
+<script type="text/javascript">
+function parseText(text) {
+  console.log(text);
+}
+  var doc = document.getElementById('result').contentWindow.document;
+  var content = doc.body.innerHTML;
+</script>
 
 
 <script type="text/javascript">
