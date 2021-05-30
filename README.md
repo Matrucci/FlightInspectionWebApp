@@ -36,15 +36,16 @@ Please note, that the logic part of the "anomalyHandler.js" file was created by 
 
 ### Running
 
-- Open the files in Visual Studio Code.
-- To run the application press on "Terminal"->"New Terminal", then you will have to write over the command line that was opend "cd controller" and after that write       "node .\expServer.js" in order to run this project.
-- Upload your xml file that describes the flight's values (you can build your own but we have provided a file for example that would work).
-- Upload your csv file with the flight's values (again, you can provide your own but one is provided inside the project's folder).
+- Clone out repo using git clone
+- To run the server side run the following commands:
+
+    cd FlightInspectionWebApp/Controller
+    node ./expserver.js
+
+- Go into localhost:8080
+- Upload the training csv file and test csv file to the website and click submit.
 - Enjoy!
 
-### Another running method
-
-- Clone the repo using git clone and write the relevant commands to run the project.
 
 ## Future improvements:
 
