@@ -20,7 +20,7 @@ html,body{
   background-position: center;
   font-family: 'Lato', sans-serif;
 }
-.button1 {
+.button {
   display: inline-block;
   padding: 15px 25px;
   font-size: 24px;
@@ -35,42 +35,14 @@ html,body{
   box-shadow: 0 9px #999;
 
 
-  position: absolute;
-  top: 130px;
-  right: 430px;
+
 }
-.button1:hover {background-color: #3e8e41}
-.button1:active {
+.button:hover {background-color: #3e8e41}
+.button:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
   }
-
-  .button2 {
-    display: inline-block;
-    padding: 15px 25px;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-
-    position: absolute;
-    top: 130px;
-    right: 680px;
-  }
-  .button2:hover {background-color: #3e8e41}
-  .button2:active {
-    background-color: #3e8e41;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-    }
-
 
 .submit {
   background-color: #f4511e;
@@ -87,8 +59,8 @@ html,body{
   cursor: pointer;
 
   position: absolute;
-  top: 211px;
-  right: 610px;
+  top: 200px;
+  right: 980px;
 }
 .submit:hover {opacity: 1}
 
@@ -104,9 +76,7 @@ html,body{
   padding: 20px 15px;
   box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
 
-  position: absolute;
-  top: 20px;
-  right: 480px;
+  
 }
 .wrapper .option{
   background: #fff;
