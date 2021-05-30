@@ -20,7 +20,7 @@ In this project, we worked on several features:
 
 ## Project structure:
 
-In this project we focused on MVC- model,view,controller, that could be seen a lot throughout the code.
+In this project we focused on MVC- Model, View, Controller, that could be seen a lot throughout the code.
 We created a View ("index.html" and it's design "style.css". This view have a controller- "expServer.js" and Model- "anomalyHandler.js" of it's own.
 Please note, that the logic part of the "anomalyHandler.js" file was created by our course staff- Eliahu Khalastchi over at BIU and was not created by us, so just the casting to Java Script was made by us. Full credit for this specific implementaion goes to him.
 
