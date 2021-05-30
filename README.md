@@ -40,6 +40,7 @@ Please note, that the logic part of the "anomalyHandler.js" file was created by 
 - To run the server side run the following commands:
 
 >    cd FlightInspectionWebApp/Controller
+
 >    node ./expserver.js
 
 - Go into localhost:8080
