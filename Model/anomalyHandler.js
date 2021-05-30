@@ -4,10 +4,10 @@ const { SimpleAnomalyDetector } = require("./AnomalyDetectionAlg/SimpleAnomalyDe
 const {TimeSeries} = require("./AnomalyDetectionAlg/TimeSeries");
 const TSMap = require("typescript-map").TSMap;
 
-function  findAnomalies(train, test, key, threshold){
+function  findAnomalies(train, test, key){
 
     if (key == 1) { //line
-        let am = new AnomalyManager(new SimpleAnomalyDetector(threshold));
+        let am = new AnomalyManager(new SimpleAnomalyDetector(0.9));
         mapCsvTrain = parseCsv(train);
         mapCsvTest = parseCsv(test);
         am.uploadTrain(mapCsvTrain);
@@ -16,10 +16,8 @@ function  findAnomalies(train, test, key, threshold){
         am.detect();
         output = buildAnomalyReport(am);
         return output;
-        //console.log(am.getAnomalies("airspeed-indicator_indicated-speed-kt"))
-        //return am.getAnomalies("airspeed-indicator_indicated-speed-kt").toString();
     } else if (key == 2) { //circle
-        let am = new AnomalyManager(new HybridAnomalyDetector(threshold));
+        let am = new AnomalyManager(new HybridAnomalyDetector(0.5));
         mapCsvTrain = parseCsv(train);
         mapCsvTest = parseCsv(test);
         am.uploadTrain(mapCsvTrain);
@@ -28,13 +26,11 @@ function  findAnomalies(train, test, key, threshold){
         am.detect();
         output = buildAnomalyReport(am);
         return output;
-        //return am.getAnomalies("aileron");
     }
 
     function buildAnomalyReport(am) {
         let anomalyMap = new TSMap();
         titles = [];
-        //output = "";
         titles = am.getFeatures();
         for(let i = 0; i < titles.length; i++) {
             anomaly = am.getAnomalies(titles[i]);
@@ -44,39 +40,12 @@ function  findAnomalies(train, test, key, threshold){
                     anomalyMap.set(titles[i] + " - " + am.mostCorrelative(titles[i]), anomaly);
                 }
                 
-               /*
-                if (!anomalyMap.has("Property 1: " + am.mostCorrelative(titles[i]) + "\r\nProperty 2: " + titles[i] + "\r\nTime steps: ")) {
-                    anomalyMap.set("Property 1: " + titles[i] + "\r\nProperty 2: " + am.mostCorrelative(titles[i]) + "\r\nTime steps: ", anomaly);
-                }
-                */
-                //output += titles[i] + " - " + am.mostCorrelative(titles[i]) + "\n";
-                //output += anomaly.toString() + "\n\n";
             }
         }
         console.log(anomalyMap.toJSON());
         return anomalyMap.toJSON();
-        //return output;
     }
 
-    /*
-    let result='1\n'
-    train.split("\n").forEach(row=>{
-        result+= row+'\n'
-    })
-    result += 'done\n'
-    test.split("\n").forEach(row=>{
-        result+= row+'\n'
-    })
-    result += 'done\n'
-    result += key + '\n'
-    result += '4\n'
-
-    output = sendToServer(result)
-    output += ' ' + key + '\n'
-
-    //TODO Send to server from first semester
-    return output
-    */
 }
 
 function parseCsv(csvStringFile) {

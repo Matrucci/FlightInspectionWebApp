@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>
-    אני מתכנת לא מעצבת פנים
-  </h1>
 <form action="/detect" method="post" enctype="multipart/form-data" name="detectForm" target="result">
     <table>
         <div class="wrapper">
@@ -23,13 +20,6 @@
                <span>Circle</span>
             </label>
         </div>
-
-        <div>
-          <label>Insert threshold (default 0.9): 0.</label>
-          <INPUT id="threshold" onkeypress="return isNumberKey(this, event)" 
-        type="text" name="threshold" value="0">
-        </div>
-        
 
         <div>
           <button class="button" onclick="document.getElementById('train_file').click()">Upload train CSV</button>

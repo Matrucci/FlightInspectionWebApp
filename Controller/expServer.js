@@ -13,12 +13,6 @@ app.get("/", (req, res) => {
 })
 app.post("/detect", async (req, res) => {
     //console.log(req.body.threshold)
-    let threshold = req.body.threshold;
-    let floatThreshold = 0.9
-    if (threshold) {
-        threshold = "0." + threshold;
-        floatThreshold = parseFloat(threshold);
-    }
     let type = req.body.select;
     var key;
     if (type == 'line') {
@@ -33,7 +27,7 @@ app.post("/detect", async (req, res) => {
         let trainFile = req.files.train_file
         let testFile = req.files.test_file
         if (testFile && trainFile) {
-            let result = await model.findAnomalies(trainFile.data.toString(), testFile.data.toString(), key, floatThreshold);
+            let result = await model.findAnomalies(trainFile.data.toString(), testFile.data.toString(), key);
             //res.json(result);
             res.json(result);
             //res.write(result)
