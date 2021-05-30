@@ -10,7 +10,7 @@ Project Description
 -
 In this project, we worked on several features:
 - We created an web application that allows the user to upload 2 csv files, then learn from the first flight and checks for anomalies about the second flight and writes them to  the block on the screen.
-- An youtube clip that explains our work: 
+- A YouTube clip that explains our work: 
 
 
 ## Requirements:
