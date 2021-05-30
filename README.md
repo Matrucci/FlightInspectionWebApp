@@ -12,6 +12,8 @@ In this project, we worked on several features:
 - We created a web application that allows the user to upload 2 csv files, then learn from the first flight and checks for anomalies in the second flight. The server then writes them to the block on the screen.
 - A YouTube clip that explains our work: 
 
+https://youtu.be/L7Bb8yZS0XY
+
 
 ## Requirements:
 
