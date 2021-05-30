@@ -26,9 +26,6 @@ Please note, that the logic part of the "anomalyHandler.js" file was created by 
 
 ![UML](https://imgur.com/8tnmBS3.png)
 
-[Classes Description](FlightInspectionApp/ClassDetails.md)
-
-
 ## Running this project on a brand new machine:
 
 - First you will need to install Visual Studio Code.
