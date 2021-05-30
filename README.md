@@ -39,8 +39,8 @@ Please note, that the logic part of the "anomalyHandler.js" file was created by 
 - Clone out repo using git clone
 - To run the server side run the following commands:
 
-    cd FlightInspectionWebApp/Controller
-    node ./expserver.js
+>    cd FlightInspectionWebApp/Controller
+>    node ./expserver.js
 
 - Go into localhost:8080
 - Upload the training csv file and test csv file to the website and click submit.
