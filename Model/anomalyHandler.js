@@ -4,97 +4,6 @@ const { SimpleAnomalyDetector } = require("./AnomalyDetectionAlg/SimpleAnomalyDe
 const {TimeSeries} = require("./AnomalyDetectionAlg/TimeSeries");
 const TSMap = require("typescript-map").TSMap;
 
-function  findAnomalies(train, test, key){
-
-    if (key == 1) { //line
-        let am = new AnomalyManager(new SimpleAnomalyDetector(0.9));
-        mapCsvTrain = parseCsv(train);
-        mapCsvTest = parseCsv(test);
-        am.uploadTrain(mapCsvTrain);
-        am.uploadTest(mapCsvTest);
-        am.learn();
-        am.detect();
-        output = buildAnomalyReport(am);
-        return output;
-    } else if (key == 2) { //circle
-        let am = new AnomalyManager(new HybridAnomalyDetector(0.5));
-        mapCsvTrain = parseCsv(train);
-        mapCsvTest = parseCsv(test);
-        am.uploadTrain(mapCsvTrain);
-        am.uploadTest(mapCsvTest);
-        am.learn();
-        am.detect();
-        output = buildAnomalyReport(am);
-        return output;
-    }
-
-    function buildAnomalyReport(am) {
-        let anomalyMap = new TSMap();
-        titles = [];
-        titles = am.getFeatures();
-        for(let i = 0; i < titles.length; i++) {
-            anomaly = am.getAnomalies(titles[i]);
-            if (anomaly && anomaly[0]) {
-                
-                if (!anomalyMap.has(am.mostCorrelative(titles[i]) + " - " + titles[i])) {
-                    anomalyMap.set(titles[i] + " - " + am.mostCorrelative(titles[i]), anomaly);
-                }
-                
-            }
-        }
-        console.log(anomalyMap.toJSON());
-        return anomalyMap.toJSON();
-    }
-
-}
-
-function parseCsv(csvStringFile) {
-    let map = {};
-    let lines = csvStringFile.split('\n');
-
-    for (let i = 0; i < lines.length; i++) {
-        lines[i] = lines[i].split('\r')[0];
-    }
-
-    let lineIndex = 0;
-    let line = lines[lineIndex];
-    let featuresList = line.split(',');
-    Features = featuresList;
-    let columnsSize = featuresList.length;
-
-    let tampMap = {};
-    for (let i = 0; i < featuresList.length; i++) {
-        let j = 2;
-        while (featuresList[i] in tampMap) {
-            featuresList[i] = featuresList[i] + j.toString();
-            j++;
-        }
-        tampMap[featuresList[i]] = [];
-    }
-    for (let feature of featuresList) {
-        map[feature] = [];
-    }
-    let isFirst = true;
-    for (const line of lines) {
-        if (!isFirst) {
-            let arr = [];
-            for (const value of line.split(',')) {
-                arr.push(parseFloat(value));
-            }
-            for (let i = 0; i < columnsSize; i++) {
-                map[featuresList[i]].push(arr[i])
-			}
-            arr = [];
-        }
-        isFirst = false;
-    }
-    for (let feature of featuresList) {
-        map[feature].pop();
-    }
-    return map;
-}
-
-
 class AnomalyManager{
     constructor(detector) {
         this._detector = detector;
@@ -162,4 +71,89 @@ class AnomalyManager{
     }
 }
 
+function findAnomalies(train, test, key){
+    mapCsvTrain = parseCsv(train);
+    mapCsvTest = parseCsv(test);
+    if (key == 2) { //circle
+        let am = new AnomalyManager(new HybridAnomalyDetector(0.5));
+        am.uploadTrain(mapCsvTrain);
+        am.uploadTest(mapCsvTest);
+        am.learn();
+        am.detect();
+        output = buildAnomalyReport(am);
+        return output;
+    } else if (key == 1) { //line
+        let am = new AnomalyManager(new SimpleAnomalyDetector(0.9));
+        am.uploadTrain(mapCsvTrain);
+        am.uploadTest(mapCsvTest);
+        am.learn();
+        am.detect();
+        output = buildAnomalyReport(am);
+        return output;
+    }
+
+    function buildAnomalyReport(am) {
+        let anomalyMap = new TSMap();
+        titles = [];
+        titles = am.getFeatures();
+        for(let i = 0; i < titles.length; i++) {
+            anomaly = am.getAnomalies(titles[i]);
+            if (anomaly && anomaly[0]) {
+                
+                if (!anomalyMap.has(am.mostCorrelative(titles[i]) + " - " + titles[i])) {
+                    anomalyMap.set(titles[i] + " - " + am.mostCorrelative(titles[i]), anomaly);
+                }
+                
+            }
+        }
+        return anomalyMap.toJSON();
+    }
+
+}
+
+function parseCsv(csvStringFile) {
+    let map = {};
+    let lines = csvStringFile.split('\n');
+
+    for (let i = 0; i < lines.length; i++) {
+        lines[i] = lines[i].split('\r')[0];
+    }
+
+    let lineIndex = 0;
+    let line = lines[lineIndex];
+    let featuresList = line.split(',');
+    Features = featuresList;
+    let columnsSize = featuresList.length;
+
+    let tampMap = {};
+    for (let i = 0; i < featuresList.length; i++) {
+        let j = 2;
+        while (featuresList[i] in tampMap) {
+            featuresList[i] = featuresList[i] + j.toString();
+            j++;
+        }
+        tampMap[featuresList[i]] = [];
+    }
+    for (let feature of featuresList) {
+        map[feature] = [];
+    }
+    let isFirst = true;
+    for (const line of lines) {
+        if (!isFirst) {
+            let arr = [];
+            for (const value of line.split(',')) {
+                arr.push(parseFloat(value));
+            }
+            for (let i = 0; i < columnsSize; i++) {
+                map[featuresList[i]].push(arr[i])
+			}
+            arr = [];
+        }
+        isFirst = false;
+    }
+    for (let feature of featuresList) {
+        map[feature].pop();
+    }
+    return map;
+}
 module.exports.findAnomalies = findAnomalies
