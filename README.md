@@ -9,29 +9,24 @@
 Project Description
 -
 In this project, we worked on several features:
-- We created an web application that allows the user to upload 2 csv files, then learn from the first flight and checks for anomalies about the second flight and writes them to  the block on the screen.
+- We created a web application that allows the user to upload 2 csv files, then learn from the first flight and checks for anomalies in the second flight. The server then writes them to the block on the screen.
 - A YouTube clip that explains our work: 
 
 
 ## Requirements:
 
-- Node.js is necessary in order to run the the project.
+- Node.js is necessary in order to run the the project [(download link)](https://nodejs.org/en/).
 - After installation, run the server and start investigate the anomalies.
 
 ## Project structure:
 
-In this project we focused on MVC- Model, View, Controller, that could be seen a lot throughout the code.
+In this project we focused on MVC (Model, View, Controller), that could be seen a lot throughout the code.
 We created a View ("index.html" and it's design "style.css". This view have a controller- "expServer.js" and Model- "anomalyHandler.js" of it's own.
-Please note, that the logic part of the "anomalyHandler.js" file was created by our course staff- Eliahu Khalastchi over at BIU and was not created by us, so just the casting to Java Script was made by us. Full credit for this specific implementaion goes to him.
 
 ![UML](https://imgur.com/8tnmBS3.png)
 
 ## Running this project on a brand new machine:
 
-- First you will need to install Visual Studio Code.
-	Download page:
-	https://visualstudio.microsoft.com/
-	We recommend getting the community version of Visual Studio. Although, any other version would work just fine.
 - Install Node.js (as mentioned above).
 
 ### Running
