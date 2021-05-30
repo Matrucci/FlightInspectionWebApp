@@ -4,18 +4,18 @@ const { SimpleAnomalyDetector } = require("./AnomalyDetectionAlg/SimpleAnomalyDe
 const {TimeSeries} = require("./AnomalyDetectionAlg/TimeSeries");
 const TSMap = require("typescript-map").TSMap;
 
-class AnomalyManager{
+class AnomalyManager {
     constructor(detector) {
         this._detector = detector;
         this._train = null;
         this._test = null;
     }
 
-    uploadTrain(trainJson){
+    uploadTrain(trainJson) {
         this._train = new TimeSeries(trainJson);
     }
 
-    uploadTest(testJson){
+    uploadTest(testJson) {
         this._test = new TimeSeries(testJson);
     }
 

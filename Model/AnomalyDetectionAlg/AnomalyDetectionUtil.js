@@ -11,7 +11,6 @@ class Line {
             this._b = 0;
         }
     }
-
     F(x) {
         return this._a * x + this._b;
     }
@@ -22,7 +21,6 @@ class Point {
         this._x = x;
         this._y = y;
     }
-
     toJson() {
         return {x: this._x, y: this._y};
     }
