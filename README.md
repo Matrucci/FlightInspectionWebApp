@@ -25,6 +25,7 @@ We created a View ("index.html" and it's design "style.css". This view have a co
 Please note, that the logic part of the "anomalyHandler.js" file was created by our course staff- Eliahu Khalastchi over at BIU and was not created by us, so just the casting to Java Script was made by us. Full credit for this specific implementaion goes to him.
 
 ![UML](https://imgur.com/UlU3CxC.png)
+![UML](https://imgur.com/8tnmBS3)
 
 [Classes Description](FlightInspectionApp/ClassDetails.md)
 
