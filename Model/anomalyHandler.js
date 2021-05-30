@@ -106,7 +106,6 @@ function findAnomalies(train, test, key){
                 
             }
         }
-        console.log(anomalyMap);
         return anomalyMap.toJSON();
     }
 
